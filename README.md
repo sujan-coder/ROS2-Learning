@@ -5,6 +5,7 @@ This repository contains my ROS2 learning journey using Raspberry Pi.
 ## 📁 Structure
 - src/ → ROS2 packages
 - my_py_pkg → Python-based ROS2 nodes
+- my_cpp_pkg → C++ based ROS2 nodes
 - my_robot_interfaces → Custom messages and services
 
 ## 🔧 Features
