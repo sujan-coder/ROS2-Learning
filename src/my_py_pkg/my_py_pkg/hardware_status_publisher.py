@@ -13,7 +13,7 @@ class HardwareStatusPublisherNode(Node):
   
     def publish_hw_status(self):
         msg = HardwareStatus()
-        msg.temperature = 43.8
+        msg.temperature = 90.8
         msg.are_motors_ready = True
         msg.debug_message = "Nothing Special"
         self.hw_status_pub_.publish(msg)
