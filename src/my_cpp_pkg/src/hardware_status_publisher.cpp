@@ -16,7 +16,7 @@ private:
     void PublishHardwareStatus()
     {
         auto msg = my_robot_interfaces::msg::HardwareStatus();
-        msg.temperature = 53.2;
+        msg.temperature = 90.2;
         msg.are_motors_ready = false;
         msg.debug_message = "Motors are too hot";
         pub_ ->publish(msg);
