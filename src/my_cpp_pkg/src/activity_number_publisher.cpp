@@ -7,10 +7,16 @@ class NumberPublisherNode : public rclcpp::Node
 {
 public:
     int number_;
-    NumberPublisherNode() : Node("number_publisher"), number_(5)
+    NumberPublisherNode() : Node("number_publisher")
     {
+        this->declare_parameter("number", 2);
+        this->declare_parameter("timer_period", 1.0);
+        number_ = this->get_parameter("number").as_int();
+        double timer_period = this->get_parameter("timer_period").as_double();
+
         number_publisher = this->create_publisher<example_interfaces::msg::Int64>("number", 10);
-        timer_ = this->create_wall_timer(0.5s, std::bind(&NumberPublisherNode::publishNumber, this));
+        timer_ = this->create_wall_timer(std::chrono::duration<double>(timer_period),
+                                         std::bind(&NumberPublisherNode::publishNumber, this));
         RCLCPP_INFO(this->get_logger(), "Publisher Node has been activated");
     
     }
