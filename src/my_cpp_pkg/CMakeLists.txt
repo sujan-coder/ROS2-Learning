@@ -43,6 +43,7 @@ install(TARGETS
  add_two_ints_client_no_oop
  add_two_ints_client
  hardware_status_publisher
+ number_publisher
  DESTINATION lib/${PROJECT_NAME}
 )
 

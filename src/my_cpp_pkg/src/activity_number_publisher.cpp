@@ -1,33 +1,35 @@
 #include "rclcpp/rclcpp.hpp"
-#include "example_interfaces/msg/Int64.hpp"
+#include "example_interfaces/msg/int64.hpp"
 
 using namespace std::chrono_literals;
 
-class PublisherNode : public rclcpp::Node
+class NumberPublisherNode : public rclcpp::Node
 {
 public:
-    PublisherNode() : Node("number_publisher")
+    int number_;
+    NumberPublisherNode() : Node("number_publisher"), number_(5)
     {
-        publisher_ = this->create_publisher<example_interfaces::msg::Int64>("number", 10);
-        timer_ = this->create_wall_timer(0.5s, std::bind(&PublisherNode::publishNumber, this));
+        number_publisher = this->create_publisher<example_interfaces::msg::Int64>("number", 10);
+        timer_ = this->create_wall_timer(0.5s, std::bind(&NumberPublisherNode::publishNumber, this));
         RCLCPP_INFO(this->get_logger(), "Publisher Node has been activated");
+    
     }
 private:
     void publishNumber()
     {
         auto msg = example_interfaces::msg::Int64();
-        msg.data = 42; 
-        publisher_->publish(msg);
+        msg.data = number_; 
+        number_publisher->publish(msg);
     }
-    std::string number;
-    rclcpp::publisher<example_interfaces::msg::Int64>::SharedPtr publisher_;
+    int number;
+    rclcpp::Publisher<example_interfaces::msg::Int64>::SharedPtr number_publisher;
     rclcpp::TimerBase::SharedPtr timer_;
 };
 
 int main(int argc, char **argv)
 {
     rclcpp::init(argc, argv);
-    auto node = std::make_shared<PublisherNode>();
+    auto node = std::make_shared<NumberPublisherNode>();
     rclcpp::spin(node);
     rclcpp::shutdown();
     return 0;
