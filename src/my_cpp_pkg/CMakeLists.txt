@@ -32,6 +32,9 @@ ament_target_dependencies(add_two_ints_client rclcpp example_interfaces)
 add_executable(hardware_status_publisher src/hardware_status_publisher.cpp)
 ament_target_dependencies(hardware_status_publisher rclcpp my_robot_interfaces)
 
+add_executable(number_publisher src/activity_number_publisher.cpp)
+ament_target_dependencies(number_publisher rclcpp example_interfaces)
+
 install(TARGETS
  cpp_node
  robot_news_station
