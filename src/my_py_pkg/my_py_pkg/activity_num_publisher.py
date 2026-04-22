@@ -7,9 +7,13 @@ class PublisherNode(Node):
 
     def __init__(self):
         super().__init__("number_publisher") 
-        self.number_ = 2
+        self.declare_parameter("number", 2)
+        self.declare_parameter("time_period", 1.0)
+        self.number_ = self.get_parameter("number").value
+        self.time_period_ = self.get_parameter("time_period").value
+
         self.publisher_ = self.create_publisher(Int64, "number", 10)
-        self.create_timer(1.0, self.publish_number)
+        self.create_timer(self.time_period_, self.publish_number)
         self.get_logger().info("Publisher Node has  Activated")
     
     def publish_number(self):
