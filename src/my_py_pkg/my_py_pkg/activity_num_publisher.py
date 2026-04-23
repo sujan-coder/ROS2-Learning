@@ -9,6 +9,7 @@ class PublisherNode(Node):
         super().__init__("number_publisher") 
         self.declare_parameter("number", 2)
         self.declare_parameter("time_period", 1.0)
+        
         self.number_ = self.get_parameter("number").value
         self.time_period_ = self.get_parameter("time_period").value
 
