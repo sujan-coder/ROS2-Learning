@@ -31,6 +31,7 @@ class LEDPanelNode(Node):
             return response
         
         self.led_states_[led_number] = state
+        self.publish_led_states()
         response.success = True
         return response
  
