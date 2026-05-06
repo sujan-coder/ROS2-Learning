@@ -1,4 +1,4 @@
-# 🤖 ROS2-Learning: Jazzy Basics
+# 🤖 ROS2-Learning: Jazzy Jalisco 
 
 [![ROS2](https://img.shields.io/badge/ROS2-Jazzy-blue)](https://docs.ros.org/en/jazzy/)
 [![Ubuntu](https://img.shields.io/badge/Ubuntu-24.04-orange)](https://ubuntu.com/)
