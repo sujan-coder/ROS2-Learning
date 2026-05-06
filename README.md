@@ -1,21 +1,18 @@
-# ROS2 Learning 
+# 🤖 ROS2-Learning: Jazzy Basics
 
-This repository contains my ROS2 learning journey using Raspberry Pi.
+[![ROS2](https://img.shields.io/badge/ROS2-Jazzy-blue)](https://docs.ros.org/en/jazzy/)
+[![Ubuntu](https://img.shields.io/badge/Ubuntu-24.04-orange)](https://ubuntu.com/)
+[![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 
-## 📁 Structure
-- src/ → ROS2 packages
-- my_py_pkg → Python-based ROS2 nodes
-- my_cpp_pkg → C++ based ROS2 nodes
-- my_robot_interfaces → Custom messages and services
+A structured, hands-on learning journey for **ROS2 Jazzy** fundamentals. This repository documents my path from beginner concepts to working with custom nodes, interfaces, and parameters.
 
-## 🔧 Features
-- Publisher & Subscriber nodes
-- Service & Client implementation
-- Custom ROS2 interfaces (.msg, .srv)
+## 🎯 Purpose
 
-## 🛠️ Setup
+This repo is designed for anyone who wants to:
+- Learn core ROS2 concepts by **doing**, not just reading.
+- Understand how to build both **Python** and **C++** nodes in the same workspace.
+- Create **custom messages and services**.
+- Use **parameters** for dynamic node configuration.
+- Build a solid foundation before moving to complex robotics projects.
 
-```bash
-cd ros2_ws
-colcon build
-source install/setup.bash
+## 📂 Repository Structure
