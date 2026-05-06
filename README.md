@@ -15,35 +15,5 @@ This repo is designed for anyone who wants to:
 - Use **parameters** for dynamic node configuration.
 - Build a solid foundation before moving to complex robotics projects.
 
-## 📂 Repository Structure
-ROS2-Learning/
-├── src/
-│ ├── my_py_pkg/ # Python nodes
-│ │ ├── my_py_pkg/
-│ │ │ ├── my_first_node.py
-│ │ │ ├── robot_news_station.py
-│ │ │ ├── smartphone.py
-│ │ │ ├── battery_node.py
-│ │ │ └── battery_client.py
-│ │ ├── setup.py
-│ │ ├── package.xml
-│ │ └── resource/
-│ ├── my_cpp_pkg/ # C++ nodes
-│ │ ├── src/
-│ │ │ ├── my_first_node.cpp
-│ │ │ └── robot_news_station.cpp
-│ │ ├── include/
-│ │ ├── CMakeLists.txt
-│ │ └── package.xml
-│ └── my_robot_interfaces/ # Custom .msg and .srv definitions
-│ ├── msg/
-│ │ └── HardwareStatus.msg
-│ ├── srv/
-│ │ └── ComputeBatteryStatus.srv
-│ ├── CMakeLists.txt
-│ └── package.xml
-├── yaml_params/ # Parameter YAML files
-│ └── robot_params.yaml
-├── .gitignore
-├── LICENSE
-└── README.md
+
+  
