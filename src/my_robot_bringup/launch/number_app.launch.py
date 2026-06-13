@@ -12,8 +12,9 @@ def generate_launch_description():
     number_publisher = Node(
         package="my_py_pkg",
         executable="number_publisher",
+        namespace="/test",
         name="my_number_publisher",
-        remappings=[("/number", "/my_number")],
+        remappings=[("number", "my_number")],
         #parameters=[
         #    {"number": 12},
         #    {"timer_period": 1.3}
@@ -25,8 +26,9 @@ def generate_launch_description():
     number_counter = Node(
         package="my_py_pkg",
         executable="number_counter",
+        namespace="/test",
         name="my_number_counter",
-        remappings=[("/number", "/my_number")]
+        remappings=[("number", "my_number")]
     )
 
     ld.add_action(number_publisher)
