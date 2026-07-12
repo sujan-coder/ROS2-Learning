@@ -6,7 +6,7 @@
 
 A structured, hands-on learning journey for **ROS2 Jazzy** fundamentals. This repository documents my path from beginner concepts to working with custom nodes, interfaces, and parameters.
 
-## 🎯 Purpose
+##  Purpose
 
 This repo is designed for anyone who wants to:
 - Learn core ROS2 concepts by **doing**, not just reading.
@@ -15,7 +15,7 @@ This repo is designed for anyone who wants to:
 - Use **parameters** for dynamic node configuration.
 - Build a solid foundation before moving to complex robotics projects.
 
-## 🧠 Concepts Covered
+##  Concepts Covered
 
 | Concept | Implementation | Language |
 |---------|----------------|-----------|
@@ -27,7 +27,7 @@ This repo is designed for anyone who wants to:
 | Service Client | `battery_client` | Python |
 | ROS2 Parameters | `yaml_params/robot_params.yaml` | Python |
 
-## 🛠️ Setup & Build
+##  Setup & Build
 
 Follow these steps to build and run the workspace on Ubuntu 24.04:
 
