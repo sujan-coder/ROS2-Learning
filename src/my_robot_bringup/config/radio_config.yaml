@@ -1,0 +1,19 @@
+/robot_news_station_Jazzy:
+  ros__parameters:
+    robot_name: "A1P0"
+
+/robot_news_station_Cazzy:
+  ros__parameters:
+    robot_name: "B1P0"
+
+/robot_news_station_Lazzy:
+  ros__parameters:
+    robot_name: "C1P0"
+
+/robot_news_station_Dazzy:
+  ros__parameters:
+    robot_name: "D1P0"
+
+/robot_news_station_Zazzy:
+  ros__parameters:
+    robot_name: "E1P0"
