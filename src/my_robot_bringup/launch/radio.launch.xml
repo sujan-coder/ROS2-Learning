@@ -1,5 +1,23 @@
 <launch>
     <node pkg="my_py_pkg" exec="robot_news_station" name="robot_news_station_Jazzy">
-        <param name="robot_name" value="Jazzy_Bot"/>
+        <param name="robot_name" value="A1P0"/>
     </node>
+
+    <node pkg="my_py_pkg" exec="robot_news_station" name="robot_news_station_Cazzy">
+        <param name="robot_name" value="B1P0"/>
+    </node>
+
+    <node pkg="my_py_pkg" exec="robot_news_station" name="robot_news_station_Lazzy">
+        <param name="robot_name" value="C1P0"/>
+    </node>
+
+    <node pkg="my_py_pkg" exec="robot_news_station" name="robot_news_station_Dazzy">
+        <param name="robot_name" value="D1P0"/>
+    </node>
+
+    <node pkg="my_py_pkg" exec="robot_news_station" name="robot_news_station_Zazzy">
+        <param name="robot_name" value="E1P0"/>
+    </node>
+
+    <node pkg="my_py_pkg" exec="smartphone" />
 </launch>
