@@ -8,8 +8,8 @@ from geometry_msgs.msg import Twist
 class TurtleControllerNode(Node):
     def __init__(self):
         super().__init__("turtle_controller") 
-        self.target_x = 8.0
-        self.target_y = 4.0
+        self.target_x = 2.0
+        self.target_y = 8.0
         self.pose_: Pose = None
         self.cmd_vel_publisher_ = self.create_publisher(Twist, "/turtle1/cmd_vel", 10)
         self.pose_subscriber_ = self.create_subscription(Pose, "/turtle1/pose", self.callback_pose, 10)
@@ -30,7 +30,7 @@ class TurtleControllerNode(Node):
 
         if distance > 0.5:
             #position
-            cmd.linear.x = 2*distance
+            cmd.linear.x = 2.0 *distance
 
             # orientation
             goal_theta = math.atan2(dist_y, dist_x)
@@ -39,11 +39,11 @@ class TurtleControllerNode(Node):
                 diff -= 2*math.pi
             elif diff < -math.pi:
                 diff += 2*math.pi
-            cmd.angular.z = 6*diff
+            cmd.angular.z = 6.0 *diff
         else:
             #target reached
-            cmd.linear.x = 0
-            cmd.angular.z = 0
+            cmd.linear.x = 0.0
+            cmd.angular.z = 0.0
 
         self.cmd_vel_publisher_.publish(cmd)
  
