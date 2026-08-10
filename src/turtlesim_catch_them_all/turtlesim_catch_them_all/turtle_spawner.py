@@ -2,6 +2,7 @@
 import rclpy
 from rclpy.node import Node
 from turtlesim.srv import Spawn
+from functools import partial
  
  
 class TurtleSpawnerNode(Node): 
@@ -20,6 +21,7 @@ class TurtleSpawnerNode(Node):
         request.name = turtle_name
 
         future = self.spawn_client_.call_async(request)
+        future.add_done_callback(partial(self.callback_call_spawn_service, request=request))
 
     def callback_call_spawn_service(self, future, request):
         response: Spawn.Response = future.result()
