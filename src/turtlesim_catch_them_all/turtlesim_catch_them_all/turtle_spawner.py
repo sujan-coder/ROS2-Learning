@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 import rclpy
 from rclpy.node import Node
-from turtlesim.srv import Spawn
 from functools import partial
 import random
 import math
+from turtlesim.srv import Spawn
+from my_robot_interfaces.msg import Turtle
+from my_robot_interfaces.msg import TurtleArray
  
 class TurtleSpawnerNode(Node): 
     def __init__(self):
