@@ -9,7 +9,22 @@ class TurtleSpawnerNode(Node):
         super().__init__("turtle_spawner")
         self.spawn_client_ = self.create_client(Spawn, "/spawn")
 
-    def call_spawn_
+    def call_spawn_service(self, turtle_name, x, y, theta):
+        while not self.spawn_client_.wait_for_service(1.0):
+            self.get_logger().warn("Witing for spawn service..")
+
+        request = Spawn.Request()
+        request.x = x
+        request.y = y
+        request.theta = theta
+        request.name = turtle_name
+
+        future = self.spawn_client_.call_async(request)
+
+    def callback_call_spawn_service(self, future, request):
+        response: Spawn.Response = future.result()
+        if response.name != "":
+            self.get_logger().info("New alive turtle: " + response.name)
  
  
 def main(args=None):
@@ -21,3 +36,4 @@ def main(args=None):
  
 if __name__ == "__main__":
     main()
+ 

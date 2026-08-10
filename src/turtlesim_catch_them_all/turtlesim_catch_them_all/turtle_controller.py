@@ -9,7 +9,7 @@ class TurtleControllerNode(Node):
     def __init__(self):
         super().__init__("turtle_controller") 
         self.target_x = 2.0
-        self.target_y = 8.0
+        self.target_y = 3.0
         self.pose_: Pose = None
         self.cmd_vel_publisher_ = self.create_publisher(
             Twist, "/turtle1/cmd_vel", 10)
