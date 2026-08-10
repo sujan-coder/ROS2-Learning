@@ -32,6 +32,7 @@ class TurtleSpawnerNode(Node):
 def main(args=None):
     rclpy.init(args=args)
     node = TurtleSpawnerNode() 
+    node.call_spawn_service("test", 3.0, 3.0, 0)
     rclpy.spin(node)
     rclpy.shutdown()
  
