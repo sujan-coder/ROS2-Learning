@@ -28,11 +28,10 @@ class TurtleSpawnerNode(Node):
         if response.name != "":
             self.get_logger().info("New alive turtle: " + response.name)
  
- 
 def main(args=None):
     rclpy.init(args=args)
     node = TurtleSpawnerNode() 
-    node.call_spawn_service("test", 3.0, 3.0, 0)
+    node.call_spawn_service("test", 3.0, 3.0, 0.0)
     rclpy.spin(node)
     rclpy.shutdown()
  
