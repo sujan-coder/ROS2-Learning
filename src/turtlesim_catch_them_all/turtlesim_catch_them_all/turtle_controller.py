@@ -11,8 +11,10 @@ class TurtleControllerNode(Node):
         self.target_x = 2.0
         self.target_y = 8.0
         self.pose_: Pose = None
-        self.cmd_vel_publisher_ = self.create_publisher(Twist, "/turtle1/cmd_vel", 10)
-        self.pose_subscriber_ = self.create_subscription(Pose, "/turtle1/pose", self.callback_pose, 10)
+        self.cmd_vel_publisher_ = self.create_publisher(
+            Twist, "/turtle1/cmd_vel", 10)
+        self.pose_subscriber_ = self.create_subscription(
+            Pose, "/turtle1/pose", self.callback_pose, 10)
         self.control_loop_timer_ = self.create_timer(0.01, self.control_loop)
 
     def callback_pose(self, pose: Pose):
