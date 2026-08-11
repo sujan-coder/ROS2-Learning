@@ -13,8 +13,16 @@ class TurtleSpawnerNode(Node):
         super().__init__("turtle_spawner")
         self.turtle_name_prefix_ = "turtle"
         self.turtle_counter_ = 0
+        self.alive_turtles_ = []
+        self.alive_turtles_publisher_ = self.create_publisher(
+            TurtleArray, "alive_turtles", 10)
         self.spawn_client_ = self.create_client(Spawn, "/spawn")
         self.spawn_turtle_timer_ = self.create_timer(2.0, self.spawn_new_turtle)
+
+    def publish_alive_turtles(self):
+        msg = TurtleArray()
+        msg.turtles = self.alive_turtles_
+        self.alive_turtles_publisher_.publish(msg)
 
     def spawn_new_turtle(self):
         self.turtle_counter_ += 1
@@ -41,6 +49,13 @@ class TurtleSpawnerNode(Node):
         response: Spawn.Response = future.result()
         if response.name != "":
             self.get_logger().info("New alive turtle: " + response.name)
+            new_turtle = Turtle()
+            new_turtle.name = response.name
+            new_turtle.x = request.x
+            new_turtle.y = request.y
+            new_turtle.theta = request.theta
+            self.alive_turtles_.append(new_turtle)
+            self.publish_alive_turtles()
  
 def main(args=None):
     rclpy.init(args=args)
