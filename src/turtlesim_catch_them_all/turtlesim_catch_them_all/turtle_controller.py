@@ -57,6 +57,8 @@ class TurtleControllerNode(Node):
             #target reached
             cmd.linear.x = 0.0
             cmd.angular.z = 0.0
+            self.call_catch_turtle_service(self.turtle_to_catch_.name)
+            self.turtle_to_catch_ = None
 
         self.cmd_vel_publisher_.publish(cmd)
 
