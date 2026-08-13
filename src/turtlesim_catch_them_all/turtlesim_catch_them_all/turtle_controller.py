@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 import math
 import rclpy
+from functools import partial
 from rclpy.node import Node
 from turtlesim.msg import Pose
 from geometry_msgs.msg import Twist
 from my_robot_interfaces.msg import Turtle
 from my_robot_interfaces.msg import TurtleArray
-from my_robot_interfaces.msg import Kill
+from my_robot_interfaces.srv import CatchTurtle
  
 class TurtleControllerNode(Node):
     def __init__(self):
@@ -19,6 +20,7 @@ class TurtleControllerNode(Node):
             Pose, "/turtle1/pose", self.callback_pose, 10)
         self.alive_turtles_subscriber_ = self.create_subscription(
             TurtleArray, "alive_turtles", self.callback_alive_turtles, 10)
+        self.catch_turtle_client_ = self.create_client(CatchTurtle, "catch_turtle")
         self.control_loop_timer_ = self.create_timer(
             0.01, self.control_loop)
 
@@ -57,6 +59,23 @@ class TurtleControllerNode(Node):
             cmd.angular.z = 0.0
 
         self.cmd_vel_publisher_.publish(cmd)
+
+    def call_catch_turtle_service(self, turtle_name):
+        while not self.kill_client_.wait_for_service(1.0):
+            self.get_logger().warn("Waiting for catch turtle service...")
+        
+            request = CatchTurtle.Request()
+            request.name = turtle_name
+        
+            future = self.catch_turtle_client_.call_async(request)
+            future.add_done_callback(
+                partial(self.callback_catch_turtle_service, turtle_name=turtle_name))
+
+    def callback_catch_turtle_service(self, future, turtle_name):
+        response: CatchTurtle.Response = future.result()
+        if not response.success:
+            self.get_logger().error("Turtle " + turtle_name + " could not be removed")
+      
  
 def main(args=None):
     rclpy.init(args=args)
