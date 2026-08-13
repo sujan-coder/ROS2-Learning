@@ -13,7 +13,7 @@ from my_robot_interfaces.srv import CatchTurtle
 class TurtleSpawnerNode(Node): 
     def __init__(self):
         super().__init__("turtle_spawner")
-        self.turtle_name_prefix_ = "turtle"
+        self.turtle_name_prefix_ = self.get_parameter("turtle_name_prefix").value
         self.turtle_counter_ = 0
         self.alive_turtles_ = []
         self.alive_turtles_publisher_ = self.create_publisher(
@@ -45,7 +45,7 @@ class TurtleSpawnerNode(Node):
 
     def call_spawn_service(self, turtle_name, x, y, theta):
         while not self.spawn_client_.wait_for_service(1.0):
-            self.get_logger().warn("Witing for spawn service..")
+            self.get_logger().warn("Waiting for spawn service..")
 
         request = Spawn.Request()
         request.x = x
@@ -56,7 +56,7 @@ class TurtleSpawnerNode(Node):
         future = self.spawn_client_.call_async(request)
         future.add_done_callback(partial(self.callback_call_spawn_service, request=request))
 
-    def callback_call_spawn_service(self, future, request):
+    def callback_call_spawn_service(self, future, request: Spawn.Request):
         response: Spawn.Response = future.result()
         if response.name != "":
             self.get_logger().info("New alive turtle: " + response.name)
