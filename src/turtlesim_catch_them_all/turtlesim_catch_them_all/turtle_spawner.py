@@ -5,6 +5,7 @@ from functools import partial
 import random
 import math
 from turtlesim.srv import Spawn
+from turtlesim.srv import Kill
 from my_robot_interfaces.msg import Turtle
 from my_robot_interfaces.msg import TurtleArray
 from my_robot_interfaces.srv import CatchTurtle
@@ -23,7 +24,7 @@ class TurtleSpawnerNode(Node):
         self.spawn_turtle_timer_ = self.create_timer(2.0, self.spawn_new_turtle)
 
     def callback_catch_turtle(self, request: CatchTurtle.Request, response: CatchTurtle.Response):
-        # call kill service
+        self.call_kill_service(request.name)
         response.success = True
 
 
@@ -73,10 +74,14 @@ class TurtleSpawnerNode(Node):
         request.name = turtle_name
 
         future = self.kill_client_.call_async(request)
-        future.add_done_callback(partial(self.callback_call_kill_service, request=request))
+        future.add_done_callback(partial(self.callback_call_kill_service, turtle_name=turtle_name))
 
-    def callback_kill_service(self, future, request: Kill.Request):
-        pass
+    def callback_kill_service(self, future, turtle_name):
+        for (i, turtle) in enumerate(self.alive_turtles_):
+            if turtle.name == turtle_name:
+             del self.alive_turtles_[i]
+             self.publish_alive_turtles()
+             break
  
 def main(args=None):
     rclpy.init(args=args)
