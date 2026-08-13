@@ -6,6 +6,7 @@ from turtlesim.msg import Pose
 from geometry_msgs.msg import Twist
 from my_robot_interfaces.msg import Turtle
 from my_robot_interfaces.msg import TurtleArray
+from my_robot_interfaces.msg import Kill
  
 class TurtleControllerNode(Node):
     def __init__(self):
