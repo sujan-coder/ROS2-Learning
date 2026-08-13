@@ -20,12 +20,14 @@ class TurtleSpawnerNode(Node):
             TurtleArray, "alive_turtles", 10)
         self.spawn_client_ = self.create_client(Spawn, "/spawn")
         self.kill_client_ = self.create_client(Kill, "/kill")
-        self.catch_turtle_servvice_ = self.create_service(CatchTurtle, "catch_turtle")
+        self.catch_turtle_servvice_ = self.create_service(
+            CatchTurtle, "catch_turtle")
         self.spawn_turtle_timer_ = self.create_timer(2.0, self.spawn_new_turtle)
 
     def callback_catch_turtle(self, request: CatchTurtle.Request, response: CatchTurtle.Response):
         self.call_kill_service(request.name)
         response.success = True
+        return response
 
 
     def publish_alive_turtles(self):
