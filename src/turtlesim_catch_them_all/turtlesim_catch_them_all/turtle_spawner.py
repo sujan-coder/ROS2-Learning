@@ -10,10 +10,13 @@ from my_robot_interfaces.msg import Turtle
 from my_robot_interfaces.msg import TurtleArray
 from my_robot_interfaces.srv import CatchTurtle
  
-class TurtleSpawnerNode(Node): 
+class TurtleSpawnerNode(Node):
     def __init__(self):
         super().__init__("turtle_spawner")
+        self.declare_parameter("turtle_name_prefix", "turtle")
+        self.declare_parameter("spawn_frequency", 1.0)
         self.turtle_name_prefix_ = self.get_parameter("turtle_name_prefix").value
+        self.spawn_frequency_ = self.get_parameter("spawn_frequency").value
         self.turtle_counter_ = 0
         self.alive_turtles_ = []
         self.alive_turtles_publisher_ = self.create_publisher(
@@ -22,7 +25,8 @@ class TurtleSpawnerNode(Node):
         self.kill_client_ = self.create_client(Kill, "/kill")
         self.catch_turtle_service_ = self.create_service(
             CatchTurtle, "catch_turtle", self.callback_catch_turtle)
-        self.spawn_turtle_timer_ = self.create_timer(2.0, self.spawn_new_turtle)
+        self.spawn_turtle_timer_ = self.create_timer(
+            1.0/self.spawn_frequency_, self.spawn_new_turtle)
 
     def callback_catch_turtle(self, request: CatchTurtle.Request, response: CatchTurtle.Response):
         self.call_kill_service(request.name)
@@ -54,7 +58,8 @@ class TurtleSpawnerNode(Node):
         request.name = turtle_name
 
         future = self.spawn_client_.call_async(request)
-        future.add_done_callback(partial(self.callback_call_spawn_service, request=request))
+        future.add_done_callback(
+            partial(self.callback_call_spawn_service, request=request))
 
     def callback_call_spawn_service(self, future, request: Spawn.Request):
         response: Spawn.Response = future.result()
@@ -76,18 +81,19 @@ class TurtleSpawnerNode(Node):
         request.name = turtle_name
 
         future = self.kill_client_.call_async(request)
-        future.add_done_callback(partial(self.callback_call_kill_service, turtle_name=turtle_name))
+        future.add_done_callback(
+            partial(self.callback_call_kill_service, turtle_name=turtle_name))
 
-    def callback_kill_service(self, future, turtle_name):
+    def callback_call_kill_service(self, future, turtle_name):
         for (i, turtle) in enumerate(self.alive_turtles_):
             if turtle.name == turtle_name:
-             del self.alive_turtles_[i]
-             self.publish_alive_turtles()
-             break
+               del self.alive_turtles_[i]
+               self.publish_alive_turtles()
+               break
  
 def main(args=None):
     rclpy.init(args=args)
-    node = TurtleSpawnerNode() 
+    node = TurtleSpawnerNode()
     rclpy.spin(node)
     rclpy.shutdown()
  
