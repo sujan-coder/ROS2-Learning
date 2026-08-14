@@ -17,7 +17,7 @@ class TurtleControllerNode(Node):
         self.catch_closest_turtle_first_ = self.get_parameter(
             "catch_closest_turtle_first").value
         self.turtle_to_catch_: Turtle = None
-        self.pose_: Pose = Nones
+        self.pose_: Pose = None
         self.cmd_vel_publisher_ = self.create_publisher(
             Twist, "/turtle1/cmd_vel", 10)
         self.pose_subscriber_ = self.create_subscription(
